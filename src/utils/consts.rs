@@ -1,0 +1,1 @@
+pub const USER_AGENT:&str = "Compass API Rust/ V0";
