@@ -31,34 +31,34 @@ pub async fn get_staff(
         .send()
         .await?;
     let res = req.json::<GetAllStaffRes>().await?;
-    let mut staff:Vec<GetStaffResponse>= Vec::new();
+    let mut staff: Vec<GetStaffResponse> = Vec::new();
     for ele in res.d {
-     let member = GetStaffResponse{
-        id: ele.id,
-        name: ele.name,
-        import_id: ele.import_id,
-        first_name: ele.first_name,
-        last_name: ele.last_name,
-        start: ele.start,
-        finish: ele.finish,
-        picture: ele.picture,
-        profile_picture: ele.profile_picture,
-        user_status: ele.user_status,
-        base_role: ele.base_role,
-        campus_id: ele.campus_id,
-        ce: ele.ce,
-        display_code: ele.display_code,
-        do_not_contact: ele.do_not_contact,
-        f: ele.f,
-        government_code_01: ele.government_code_01,
-        government_code_02: ele.government_code_02,
-        has_registered_device: ele.has_registered_device,
-        mobile_number: ele.mobile_number,
-        name_first_pref_last_id_form: ele.name_first_pref_last_id_form,
-        name_pref_first: ele.name_pref_first,
-        name_pref_last_id: ele.name_pref_last_id,
-    };
-    staff.push(member);
+        let member = GetStaffResponse {
+            id: ele.id,
+            name: ele.name,
+            import_id: ele.import_id,
+            first_name: ele.first_name,
+            last_name: ele.last_name,
+            start: ele.start,
+            finish: ele.finish,
+            picture: ele.picture,
+            profile_picture: ele.profile_picture,
+            user_status: ele.user_status,
+            base_role: ele.base_role,
+            campus_id: ele.campus_id,
+            ce: ele.ce,
+            display_code: ele.display_code,
+            do_not_contact: ele.do_not_contact,
+            f: ele.f,
+            government_code_01: ele.government_code_01,
+            government_code_02: ele.government_code_02,
+            has_registered_device: ele.has_registered_device,
+            mobile_number: ele.mobile_number,
+            name_first_pref_last_id_form: ele.name_first_pref_last_id_form,
+            name_pref_first: ele.name_pref_first,
+            name_pref_last_id: ele.name_pref_last_id,
+        };
+        staff.push(member);
     }
     // print!("{:?}", req.text().await?);
     Ok(staff)
@@ -71,29 +71,29 @@ struct GetAllStaffRequest {
 }
 #[derive(Serialize, Deserialize, Debug)]
 pub struct GetStaffResponse {
-    id: i32,
-    name: String,
-    import_id: String,
-    first_name: String,
-    last_name: String,
-    start: String,
-    finish: Option<String>,
-    picture: Option<String>,
-    profile_picture: String,
-    user_status: i32,
-    base_role: i32,
-    campus_id: Option<i32>,
-    ce: String,
-    display_code: String,
-    do_not_contact: bool,
-    f: String,
-    government_code_01: String,
-    government_code_02: String,
-    has_registered_device: bool,
-    mobile_number: String,
-    name_first_pref_last_id_form: String,
-    name_pref_first: String,
-    name_pref_last_id: String,
+    pub id: i32,
+    pub name: String,
+    pub import_id: String,
+    pub first_name: String,
+    pub last_name: String,
+    pub start: String,
+    pub finish: Option<String>,
+    pub picture: Option<String>,
+    pub profile_picture: String,
+    pub user_status: i32,
+    pub base_role: i32,
+    pub campus_id: Option<i32>,
+    pub ce: String,
+    pub display_code: String,
+    pub do_not_contact: bool,
+    pub f: String,
+    pub government_code_01: String,
+    pub government_code_02: String,
+    pub has_registered_device: bool,
+    pub mobile_number: String,
+    pub name_first_pref_last_id_form: String,
+    pub name_pref_first: String,
+    pub name_pref_last_id: String,
 }
 #[derive(Serialize, Deserialize, Debug)]
 struct GetAllStaffRes {
