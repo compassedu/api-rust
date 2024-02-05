@@ -8,5 +8,5 @@ sequenceDiagram
     C -->> B: {d: { 2FAuthRequired: false, friendlyMessage: "", success: true}}
     Note over B,C: ≈ 860ms
     B -->> A : AuthenticatedUserCredentials { success: true, user_id: 4225, cookies: "" }
-    C -> A: 870.48ms
+    Note over C,A: 870.48ms
 ```
