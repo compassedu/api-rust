@@ -1,1 +1,1 @@
-pub mod eventsbyuser;
+pub mod events;
