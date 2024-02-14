@@ -20,7 +20,7 @@ pub async fn get_all_locations(
         .default_headers(headers)
         .user_agent(USER_AGENT)
         .build()?
-        .post(url)
+        .get(url)
         .send()
         .await?;
     let res = req.json::<GetAllLocationsResponse>().await?;
@@ -46,7 +46,7 @@ struct GetAllLocationsResponse {
 struct LocationResponse {
     id: i32,
     archived: bool,
-    building: String,
+    building: Option<String>,
     #[serde(rename = "longName")]
     long_name: String,
     #[serde(rename = "n")]
@@ -58,7 +58,7 @@ struct LocationResponse {
 pub struct Location {
     id: i32,
     archived: bool,
-    building: String,
+    building: Option<String>,
     long_name: String,
     name: String,
     room_name: String,
