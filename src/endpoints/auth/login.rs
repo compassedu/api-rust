@@ -1,7 +1,24 @@
-
 use serde::{Deserialize, Serialize};
 
 use crate::utils::consts::USER_AGENT;
+/// Creates user credentials.
+///
+/// # Arguments
+///
+/// * `username` - Your Compass Username.
+/// * `password` - Your Compass Password.
+/// * `school_id` - The ID of the school.
+/// # Supported
+///
+/// ❌ 2fa not supported
+///
+/// ❌ SAML not supported
+/// # Example
+///
+/// ```
+/// let auth = authenticate_user_credentials("JOHNDOE", "***", "***").await?;
+/// println!("{:?}", auth); // Output: AuthenticatedUserCredentials { success: true, user_id: 0, cookies: "***" }
+/// ```
 pub async fn authenticate_user_credentials(
     username: &str,
     password: &str,
@@ -25,13 +42,15 @@ pub async fn authenticate_user_credentials(
         .json(&user_credentials)
         .send()
         .await?;
-    let cookies:Vec<String> = req.cookies().map(|cookie| format!("{}={}", cookie.name(), cookie.value())).collect();
+    let cookies: Vec<String> = req
+        .cookies()
+        .map(|cookie| format!("{}={}", cookie.name(), cookie.value()))
+        .collect();
     let res = req.json::<AuthenticationResult>().await?;
     Ok(AuthenticatedUserCredentials {
         success: res.d.success,
         user_id: res.d.roles[0].user_id,
-        cookies: cookies
-            .join("; "),
+        cookies: cookies.join("; "),
     })
 }
 #[derive(Serialize, Deserialize, Debug)]
@@ -40,11 +59,15 @@ struct AuthenticatedUserCredentialsErr {
     technical_message: String,
     msg: String,
 }
+/// Represents authenticated user credentials.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct AuthenticatedUserCredentials {
-   pub success: bool,
-   pub user_id: i32,
-   pub cookies: String,
+    /// Indicates whether the authentication was successful.
+    pub success: bool,
+    /// The ID of the authenticated user.
+    pub user_id: i32,
+    /// The cookies associated with the authenticated session.
+    pub cookies: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]

@@ -2,6 +2,20 @@ use serde::{Deserialize, Serialize};
 
 use crate::utils::consts::USER_AGENT;
 
+/// Retrieves calendar events for a specific user within a given time range.
+///
+/// # Arguments
+///
+/// * `cookies` - Cookies for authentication.
+/// * `user_id` - ID of the user whose calendar events are to be retrieved.
+/// * `start` - Start date for the calendar events (in a string format).
+/// * `end` - End date for the calendar events (in a string format).
+/// * `school_id` - The ID of the school.
+/// # Example
+///
+/// ```
+/// let events = get_calendar_events_by_user("***".to_string(), 0, "2024-05-08".to_string(), "2024-05-08".to_string(), "***").await?;
+/// ```
 pub async fn get_calendar_events_by_user(
     cookies: String,
     user_id: i32,
@@ -220,61 +234,131 @@ struct CalendarEventManager {
     manager_user_id: i32,
 }
 
+/// Represents an event in the calendar.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Event {
+    /// ID of the activity.
     pub activity_id: i32,
+    /// Import identifier for the activity.
     pub activity_import_identifier: Option<String>,
+    /// Type of activity.
     pub activity_type: i32,
+    /// Indicates if the event is an all-day event.
     pub all_day: bool,
+    /// Mode of attendance for the event.
     pub attendance_mode: i32,
+    /// ID of the attendee user.
     pub attendee_user_id: i32,
+    /// Background color of the event.
     pub background_color: String,
+    /// Optional ID of the calendar.
     pub calendar_id: Option<i32>,
+    /// Optional category IDs for the event.
     pub category_ids: Option<Vec<i32>>,
+    /// Comment for the event.
     pub comment: Option<String>,
+    /// Description of the event.
     pub description: String,
+    /// Optional setup status for the event.
     pub event_setup_status: Option<i32>,
+    /// Finish time of the event. In ISO 8601 format.
     pub finish: String,
+    /// Globally unique identifier for the event.
     pub guid: String,
+    /// In-class status for the event.
     pub in_class_status: Option<i32>,
+    /// Instance ID of the event.
     pub instance_id: String,
+    /// Indicates if the event is recurring.
     pub is_recurring: bool,
+    /// ID of the learning task.
     pub learning_task_id: Option<i32>,
+    /// Indicates if lesson plan is configured for the event.
     pub lesson_plan_configured: bool,
+    /// Location ID for the event.
     pub location: Option<i32>,
+    /// Locations associated with the event.
     pub locations: Vec<EventLocation>,
+    /// Long title of the event.
+    /// # Return Sample
+    /// `{TIME}: {CLASS IMPORT IDENTIFIER} - {LOCATION NAME} - {MANAGER IMPORT IDENTIFIER}`
     pub long_title: String,
+    /// Long title of the event without time.
+    /// # Return Sample
+    /// `{CLASS IMPORT IDENTIFIER} - {LOCATION NAME} - {MANAGER IMPORT IDENTIFIER}`
     pub long_title_without_time: String,
+    /// ID of the manager.
     pub manager_id: i32,
+    /// Managers associated with the event.
     pub managers: Vec<EventManager>,
+    /// Optional ID of the minutes meeting.
     pub minutes_meeting_id: Option<i32>,
+    /// Period of the event.
     pub period: String,
+    /// Optional finish date for recurring events.
     pub recurring_finish: Option<String>,
+    /// Optional start date for recurring events.
     pub recurring_start: Option<String>,
+    /// Optional number of repeat days for recurring events.
     pub repeat_days: Option<i8>,
+    /// Indicates if the event repeats forever.
     pub repeat_forever: bool,
+    /// Frequency of event repetition.
     pub repeat_frequency: i32,
+    /// Optional end date for repeating events.
     pub repeat_until: Option<String>,
+    /// Indicates if roll is marked for the event.
     pub roll_marked: bool,
+    /// Running status of the event.
     pub running_status: i32,
+    /// Start time of the event. In ISO 8601 format.
     pub start: String,
+    /// ID of the target student.
     pub target_student_id: i32,
+    /// Indicates if teaching days only are considered for the event.
     pub teaching_days_only: bool,
+    /// Text color of the event.
     pub text_color: String,
+    /// Title of the event.
     pub title: String,
+    /// Optional unavailable PD for the event.
     pub unavailable_pd: Option<String>,
 }
+/// Represents the location of an event.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct EventLocation {
+    /// Optional covering location ID.
+    ///
+    /// When the ID is filled, it indicates that the room has been changed.
     pub covering_location_id: Option<i32>,
+    /// Optional covering location name.
+    ///
+    /// It indicates that the room has been changed.
     pub covering_location_name: Option<String>,
+    /// ID of the location.
     pub location_id: i32,
+    /// Name of the location.
     pub location_name: String,
 }
+/// Represents a manager of an event.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct EventManager {
+    /// Optional covering import identifier.
+    ///
+    /// It indicates that the manager has been changed.
     pub covering_import_identifier: Option<String>,
+    /// Optional covering user ID.
+    ///
+    /// It indicates that the manager has been changed.
     pub covering_user_id: Option<i32>,
+    /// Import identifier of the manager.
     pub manager_import_identifier: String,
+    /// ID of the manager user.
     pub manager_user_id: i32,
 }
+// pub enum ActivityType {
+//     /// Represents a class activity.
+//     Class,
+//     /// Represents an event activity.
+//     Event,
+// }

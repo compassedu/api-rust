@@ -1,6 +1,11 @@
 use crate::utils::consts::USER_AGENT;
 use serde::{Deserialize, Serialize};
-
+/// Retrieves all locations.
+///
+/// # Arguments
+///
+/// * `cookies` - Cookies for authentication.
+/// * `school_id` - The ID of the school.
 pub async fn get_all_locations(
     cookies: String,
     school_id: &str,
@@ -54,12 +59,19 @@ struct LocationResponse {
     #[serde(rename = "roomName")]
     room_name: String,
 }
+/// Represents a location.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Location {
-    id: i32,
-    archived: bool,
-    building: Option<String>,
-    long_name: String,
-    name: String,
-    room_name: String,
+    /// The ID of the location.
+    pub id: i32,
+    /// Indicates whether the location is archived.
+    pub archived: bool,
+    /// The building associated with the location.
+    pub building: Option<String>,
+    /// The long name of the location.
+    pub long_name: String,
+    /// The name of the location.
+    pub name: String,
+    /// The room name of the location.
+    pub room_name: String,
 }

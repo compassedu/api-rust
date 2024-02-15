@@ -1,7 +1,12 @@
 use serde::{Deserialize, Serialize};
 
 use crate::utils::consts::USER_AGENT;
-
+/// Retrieves the news feed.
+///
+/// # Arguments
+///
+/// * `cookies` - Cookies for authentication.
+/// * `school_id` - The ID of the school.
 pub async fn get_news_feed(
     cookies: String,
     school_id: &str,
@@ -83,14 +88,22 @@ struct NewsItemAttachment {
     #[serde(rename = "Url")]
     url: Option<String>,
 }
+/// Represents an attachment associated with a news item.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Attachment {
+    /// The ID of the attachment.
     pub id: i32,
+    /// The type of the file.
     pub file_type: i32,
+    /// Indicates whether the attachment is an image.
     pub is_image: bool,
+    /// The name of the attachment.
     pub name: String,
+    /// The original file name of the attachment.
     pub original_file_name: String,
+    /// The UI link of the attachment.
     pub ui_link: String,
+    /// The URL of the attachment, if available.
     pub url: Option<String>,
 }
 #[derive(Serialize, Deserialize, Debug)]
@@ -122,18 +135,31 @@ struct NewsItemRes {
     #[serde(rename = "UserName")]
     username: String,
 }
+/// Represents a news item.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct NewsItem {
+    /// The ID of the news item.
     pub id: String,
+    /// The title of the news item.
     pub title: String,
+    /// The creation timestamp of the news item.
     pub created_at: String,
+    /// The list of attachments associated with the news item.
     pub attachments: Vec<Attachment>,
+    /// The communication type of the news item.
     pub communication_type: i32,
+    /// The content of the news item.
     pub content: String,
+    /// Indicates whether the news item was created by an admin.
     pub created_by_admin: bool,
+    /// The finish timestamp of the news item.
     pub finish: String,
+    /// Indicates the priority of the news item.
     pub priority: bool,
+    /// The ID of the author of the news item.
     pub author_id: i32,
+    /// The URL of the author's image.
     pub author_image_url: String,
+    /// The username of the author.
     pub username: String,
 }
