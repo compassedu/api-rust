@@ -51,6 +51,7 @@ pub async fn authenticate_user_credentials(
         success: res.d.success,
         user_id: res.d.roles[0].user_id,
         cookies: cookies.join("; "),
+        school_id: school_id.to_string(),
     })
 }
 #[derive(Serialize, Deserialize, Debug)]
@@ -68,6 +69,8 @@ pub struct AuthenticatedUserCredentials {
     pub user_id: i32,
     /// The cookies associated with the authenticated session.
     pub cookies: String,
+    /// The school id associated with the authenticated session.
+    pub school_id: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
