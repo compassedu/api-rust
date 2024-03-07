@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 use crate::utils::consts::USER_AGENT;
-
+#[deprecated(note = "subject to change")]
 pub async fn get_attendance_summary(
     cookies: String,
     start_date: String,
