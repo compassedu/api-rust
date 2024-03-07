@@ -1,4 +1,3 @@
 /target
 src/main.rs
 src/endpoints/tasks.rs
-src/endpoints/attendance.rs
