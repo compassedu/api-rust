@@ -52,19 +52,19 @@ pub async fn get_attendance_summary(
             counted: subject.counted,
             form: subject.form,
             total_out_of_class: subject.total_out_of_class,
-            late_unexplained: subject.late_unexplained,
+            late_explained: subject.late_unexplained,
             last_name: subject.last_name,
-            lu: subject.lu,
+            late_unexplained: subject.lu,
             not_present_counted_vce_ok: subject.not_present_counted_vce_ok,
             notcounted: subject.notcounted,
             npa: subject.npa,
             npu: subject.npu,
-            p: subject.p,
-            pa: subject.pa,
-            pok: subject.pok,
+            present: subject.p,
+            in_class_percentage: subject.pa,
+            accounted_for_percentage: subject.pok,
             subject_name: subject.subject_name,
-            spc: subject.spc,
-            ta: subject.ta,
+            school_percentage: subject.spc,
+            total_in_class: subject.ta,
             tna: subject.tna,
             user_id: subject.user_id,
             un: subject.un,
@@ -133,7 +133,7 @@ struct AttendanceSumRes {
     // #[serde(rename = "ln")]
     p: i32,
     // #[serde(rename = "ln")]
-    pa: i32,
+    pa: String,
     // #[serde(rename = "ln")]
     pok: String,
     #[serde(rename = "sn")]
@@ -144,7 +144,7 @@ struct AttendanceSumRes {
     ta: i32,
     // #[serde(rename = "ln")]
     tna: i32,
-    // #[serde(rename = "uid")]
+    #[serde(rename = "uid")]
     user_id: i32,
     // #[serde(rename = "ln")]
     un: String,
@@ -165,19 +165,43 @@ pub struct AttendanceSummary {
     pub counted: i32,
     pub form: String,
     pub total_out_of_class: i32,
-    pub late_unexplained: i32,
+    /// # Late: Explained
+    /// Number of times the student was late explained (parent or school), for the given class.
+    pub late_explained: i32,
     pub last_name: String,
-    pub lu: i32,
+    /// # Late: Unexplained
+    /// Number of times the student was late for the given class, and there is no explanation (parent or school) in the system.
+    pub late_unexplained: i32,
     pub not_present_counted_vce_ok: i32,
     pub notcounted: i32,
     pub npa: i32,
     pub npu: i32,
-    pub p: i32,
-    pub pa: i32,
-    pub pok: String,
+    /// # Present
+    /// Number of times the student was marked present for the given class.
+    pub present: i32,
+    /// # In Class' Percentage
+    /// For the time allocated to the given class, what percentage was the student doing that actual class/subject (and not something else).
+    ///
+    /// ## Calculation
+    /// Present + Late / Sessions Run
+    ///
+    /// This figure is most useful for individual subject/class teachers
+    pub in_class_percentage: String,
+    /// # Accounted For Percentage
+    /// For the time allocated to the given class, what percentage of this time was the student actually accounted for?
+    ///
+    /// ## Calculation
+    /// Present + Late + Non-Counted + Counted / Sessions Run
+    pub accounted_for_percentage: String,
     pub subject_name: String,
-    pub spc: String,
-    pub ta: i32,
+    /// # School Percentage
+    /// For the time allocated to the given class, what percentage of this time was the student's whereabouts explained/accounted for by the school?
+    ///
+    /// ## Calculation
+    /// Present + Late + Non-Counted / Sessions Run
+    pub school_percentage: String,
+    /// # Total In Class
+    pub total_in_class: i32,
     pub tna: i32,
     pub user_id: i32,
     pub un: String,
