@@ -1,6 +1,6 @@
 [package]
 name = "compassapi"
-version = "0.1.4"
+version = "0.1.5"
 edition = "2021"
 description = "A Rust library for interacting with Compass's API."
 license = "GPL-2.0"
