@@ -213,7 +213,7 @@ pub struct AttendanceSummary {
 struct GetAttendanceSumRes {
     d: Vec<AttendanceSumRes>,
 }
-async fn get_half_day_summary_grid_lines(
+pub async fn get_half_day_summary_grid_lines(
     cookies: String,
     year: i32,
     user_id: i32,
