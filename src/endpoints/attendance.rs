@@ -218,9 +218,9 @@ pub async fn get_half_day_summary_grid_lines(
     year: i32,
     user_id: i32,
     school_id: &str,
-) -> Result<String, reqwest::Error> {
+) -> Result<Vec<SummaryGridLine>, reqwest::Error> {
     let url = format!(
-        "https://{}.compass.education/Services/Attendance.svc/GetAttendanceSummary",
+        "https://{}.compass.education/Services/AttendanceV2.svc/GetHalfDaySummaryGridLines",
         school_id
     );
     let mut headers = reqwest::header::HeaderMap::new();
@@ -238,9 +238,9 @@ pub async fn get_half_day_summary_grid_lines(
         .json(&GetHalfDaySummaryGridLinesReq {
             user_id,
             year,
-            page: 0,
+            page: 1,
             start: 0,
-            limit: 1000,
+            limit: 2500,
         })
         .send()
         .await?;
@@ -286,7 +286,7 @@ pub async fn get_half_day_summary_grid_lines(
         };
         get_half_day_summary_grid_lines.push(v)
     }
-    Ok("()".to_string())
+    Ok(get_half_day_summary_grid_lines)
 }
 #[derive(Serialize, Deserialize, Debug)]
 struct GetHalfDaySummaryGridLinesReq {
